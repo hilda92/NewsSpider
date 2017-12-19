@@ -6,6 +6,8 @@ class SinaNewsSpider(scrapy.Spider):
     allowed_domains = ["med.sina.com"]
     start_urls = ["http://med.sina.com/article_gategory_103.html"]
 
+
+
     def parse(self,response):
         # filename = response.url.split("/")[-2]
         # with open(filename, 'wb') as f:
@@ -13,5 +15,9 @@ class SinaNewsSpider(scrapy.Spider):
         item = SinaNewsItem()
         title = response.xpath("/html/head/title/text()").extract()
         item["title"] = title[0][:-5]
+        printcn(title)
         return item
+    def printcn(suni):
+        for i in suni:
+            print suni.encode('utf-8')
 
