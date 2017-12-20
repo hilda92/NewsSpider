@@ -13,6 +13,7 @@ BOT_NAME = 'NewsSpider'
 
 SPIDER_MODULES = ['NewsSpider.spiders']
 NEWSPIDER_MODULE = 'NewsSpider.spiders'
+ITEM_PIPELINES = {"NewsSpider.pipelines.NewsspiderPipeline":300}
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent

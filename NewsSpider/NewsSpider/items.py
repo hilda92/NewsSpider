@@ -15,6 +15,8 @@ class NewsspiderItem(scrapy.Item):
 
 class SinaNewsItem(scrapy.Item):
     title = scrapy.Field()
-    link = scrapy.Field()
-    indextitle_text = scrapy.Field()
-    indextitle_ms = scrapy.Field()
+
+    indextext_title = scrapy.Field()
+    indextext_link = scrapy.Field()
+    indextext_ms = scrapy.Field()
+    indextext_time =scrapy.Field()
