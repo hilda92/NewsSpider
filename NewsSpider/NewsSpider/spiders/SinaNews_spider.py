@@ -1,7 +1,4 @@
 import scrapy
-import time
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
 
 from NewsSpider.items import SinaNewsItem
 
@@ -15,12 +12,6 @@ class SinaNewsSpider(scrapy.Spider):
             print i
 
     def parse(self,response):
-
-        url_set = set()
-        self.driver.get(response.url)
-        while True:
-            wait =WebDriverWait(self.driver, 2)
-            wait.until(lambda driver:driver.find_element_by_xpath('//a[@class="indextext-title"]/@href'))
 
         item = SinaNewsItem()
         title = response.xpath("/html/head/title/text()").extract()
@@ -38,6 +29,18 @@ class SinaNewsSpider(scrapy.Spider):
 
         indextext_time = response.xpath('//span[@class="indextext-time"]/text()').extract()
         item["indextext_time"]=indextext_time
-        return item
+        # return item
+
+        url_set = set(indextext_link)
+        for url in url_set:
+            url = response.urljoin(url)
+            yield scrapy.Request(url, callback = self.parse_news)
+
+    def parse_news(self, response):
+        item = SinaNewsItem()
+        news_content = response.xpath('//div[@class="textbox"]/text()').extract()
+        item["textbox"].add(news_content[0])
+        yield item
+
 
 

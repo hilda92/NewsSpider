@@ -4,6 +4,9 @@
 #
 # See documentation in:
 # http://doc.scrapy.org/en/latest/topics/spider-middleware.html
+from selenium import webdriver
+from scrapy.http import HtmlResponse
+import time
 
 from scrapy import signals
 
@@ -54,3 +57,26 @@ class NewsspiderSpiderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+class NewsspiderDownloaderMiddleware(object):
+
+    def process_request(self,request,spider):
+        driver = webdriver.PhantomJS(executable_path="D:\software\phantomjs-2.1.1-windows\\bin\phantomjs.exe")
+
+        try:
+            driver.get(request.url)
+            driver.implicity_wait(2)
+            time.sleep(2)
+
+            clickmore = "//a[@class='clickmore']"
+            for n in range(5):
+                driver.find_element_by_xpath(clickmore).click()
+                time.sleep(3)
+
+            true_page = driver.page_source
+            driver.close()
+            return HtmlResponse(request.url, body = true_page,encoding='utf-8',request=request,)
+        except:
+            print 'get news data failed'
+
+        return None

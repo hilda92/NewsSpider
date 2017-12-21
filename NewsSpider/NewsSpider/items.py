@@ -20,3 +20,4 @@ class SinaNewsItem(scrapy.Item):
     indextext_link = scrapy.Field()
     indextext_ms = scrapy.Field()
     indextext_time =scrapy.Field()
+    textbox = scrapy.Field()

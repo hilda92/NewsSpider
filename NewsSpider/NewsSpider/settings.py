@@ -14,7 +14,7 @@ BOT_NAME = 'NewsSpider'
 SPIDER_MODULES = ['NewsSpider.spiders']
 NEWSPIDER_MODULE = 'NewsSpider.spiders'
 ITEM_PIPELINES = {"NewsSpider.pipelines.NewsspiderPipeline":300}
-
+DOWNLOADER_MIDDLEWARES ={"NewsSpider.middlewares.NewsspiderDownloaderMiddleware":543}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'NewsSpider (+http://www.yourdomain.com)'
