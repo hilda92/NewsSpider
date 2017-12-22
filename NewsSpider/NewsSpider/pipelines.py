@@ -13,6 +13,7 @@ class NewsspiderPipeline(object):
         self.file = codecs.open("SinaNews_0.json",'wb',encoding='utf-8')
 
     def process_item(self, item, spider):
+        print "item=========================="
         line = json.dumps(dict(item)) + '\n'
         self.file.write(line.decode("unicode_escape"))
         return item

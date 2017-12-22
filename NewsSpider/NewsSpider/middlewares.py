@@ -61,22 +61,26 @@ class NewsspiderSpiderMiddleware(object):
 class NewsspiderDownloaderMiddleware(object):
 
     def process_request(self,request,spider):
-        driver = webdriver.PhantomJS(executable_path="D:\software\phantomjs-2.1.1-windows\\bin\phantomjs.exe")
 
-        try:
-            driver.get(request.url)
-            driver.implicity_wait(2)
-            time.sleep(2)
+        url = "http://med.sina.com/article_gategory_103.html"
 
-            clickmore = "//a[@class='clickmore']"
-            for n in range(5):
-                driver.find_element_by_xpath(clickmore).click()
-                time.sleep(3)
+        if request.url == url:
+            driver = webdriver.PhantomJS(executable_path="D:\software\phantomjs-2.1.1-windows\\bin\phantomjs.exe")
+            print "====" + "\n"
+            try:
+                driver.get(request.url)
+                driver.implicity_wait(1)
+                time.sleep(1)
 
-            true_page = driver.page_source
-            driver.close()
-            return HtmlResponse(request.url, body = true_page,encoding='utf-8',request=request,)
-        except:
-            print 'get news data failed'
+                clickmore = "//a[@class='clickmore']"
+                for n in range(5):
+                    driver.find_element_by_xpath(clickmore).click()
+                    time.sleep(2)
+
+                true_page = driver.page_source
+                driver.close()
+                return HtmlResponse(request.url, body = true_page,encoding='utf-8',request=request,)
+            except:
+                print 'get news data failed'
 
         return None
