@@ -65,22 +65,25 @@ class NewsspiderDownloaderMiddleware(object):
         url = "http://med.sina.com/article_gategory_103.html"
 
         if request.url == url:
-            driver = webdriver.PhantomJS(executable_path="D:\software\phantomjs-2.1.1-windows\\bin\phantomjs.exe")
-            print "====" + "\n"
+            # driver = webdriver.PhantomJS(executable_path="D:\software\phantomjs-2.1.1-windows\\bin\phantomjs.exe")
+            driver = webdriver.PhantomJS(executable_path="/Users/mac/phantomjs-2.1.1-macosx/bin/phantomjs")
+
+            print "=" + "\n"
             try:
                 driver.get(request.url)
-                driver.implicity_wait(1)
+                # driver.implicity_wait(1)
                 time.sleep(1)
 
                 clickmore = "//a[@class='clickmore']"
-                for n in range(5):
+                for n in range(0):
+                    print "+" + "\n"
                     driver.find_element_by_xpath(clickmore).click()
                     time.sleep(2)
 
                 true_page = driver.page_source
                 driver.close()
                 return HtmlResponse(request.url, body = true_page,encoding='utf-8',request=request,)
-            except:
-                print 'get news data failed'
+            except Exception as e:
+                print 'get news data failed'+e.message
 
         return None

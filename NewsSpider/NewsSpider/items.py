@@ -13,11 +13,22 @@ class NewsspiderItem(scrapy.Item):
     # name = scrapy.Field()
     pass
 
-class SinaNewsItem(scrapy.Item):
+class SinaNewsListItem(scrapy.Item):
     title = scrapy.Field()
 
     indextext_title = scrapy.Field()
     indextext_link = scrapy.Field()
     indextext_ms = scrapy.Field()
     indextext_time =scrapy.Field()
-    textbox = scrapy.Field()
+    # news
+
+
+class SinaNewsItem(scrapy.Item):
+    title = scrapy.Field()
+
+    # indextext_title = scrapy.Field()
+    indextext_link = scrapy.Field()
+    # indextext_ms = scrapy.Field()
+    # indextext_time =scrapy.Field()
+    # news
+    news = scrapy.Field()
